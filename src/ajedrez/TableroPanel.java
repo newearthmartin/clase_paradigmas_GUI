@@ -30,12 +30,14 @@ public class TableroPanel extends JPanel {
             @Override public void mouseEntered(MouseEvent e) {}
             @Override public void mouseExited(MouseEvent e) {}
         });
+
         Pieza[] piezas = new Pieza[] {
             new Pieza(Pieza.Tipo.REY, false, 0, 4),
             new Pieza(Pieza.Tipo.REY, true, 7, 4),
             new Pieza(Pieza.Tipo.REINA, false, 0, 3),
             new Pieza(Pieza.Tipo.REINA, true, 7, 3)
         };
+
         for (Pieza pieza: piezas) {
             PiezaLabel piezaLabel = new PiezaLabel(pieza);
             piezaLabels.add(piezaLabel);
@@ -45,9 +47,11 @@ public class TableroPanel extends JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
-        tamCasilleroX = getWidth() / 8; // calculamos aca por si cambia el tamaño de la ventana
+        // recalculamos el tamaño de los casilleros por si cambia el tamaño de la ventana
+        tamCasilleroX = getWidth() / 8;
         tamCasilleroY = getHeight() / 8;
         piezaLabels.forEach(piezaLabel -> {
+            // ajustar la posicion de los labels de acuerdo a la posicion de las piezas
             Pieza pieza = piezaLabel.pieza;
             piezaLabel.setBounds(pieza.col * tamCasilleroX, pieza.fila * tamCasilleroY, tamCasilleroX, tamCasilleroY);
         });
@@ -56,6 +60,7 @@ public class TableroPanel extends JPanel {
     }
 
     private void pintarTablero(Graphics g) {
+        // pinta la grilla del tablero como rectangulos
         for (int fila = 0; fila < 8; fila++) {
             for (int col = 0; col < 8; col++) {
                 Color color = (fila + col) % 2 == 0 ?  Color.white : Color.PINK;
@@ -66,11 +71,11 @@ public class TableroPanel extends JPanel {
 
     }
 
-    private void mouseClick(int x, int y) {
-        int casX = x / tamCasilleroX;
+    private void mouseClick(int x, int y) { // click en la posicion x,y del panel
+        int casX = x / tamCasilleroX; // calculamos a que casillero corresponde
         int casY = y / tamCasilleroY;
         System.out.println("casillero clickeado: fila=" + casY + ", col=" + casX);
-        piezaLabels.forEach(piezaLabel -> {
+        piezaLabels.forEach(piezaLabel -> { // buscamos si hay una pieza en ese casillero
             Pieza pieza = piezaLabel.pieza;
             if (pieza.fila == casY && pieza.col == casX) {
                 System.out.println("Pieza clickeada: " + pieza);

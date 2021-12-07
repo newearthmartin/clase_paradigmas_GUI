@@ -12,6 +12,6 @@ public class PiezaLabel extends JLabel {
         Font font = getFont();
         setFont(new Font(font.getName(), font.getStyle(), 50));
         setHorizontalAlignment(SwingConstants.CENTER);
-        //setBorder(BorderFactory.createLineBorder(Color.black)); //borde para debuggear
+        // setBorder(BorderFactory.createLineBorder(Color.BLUE)); //borde para debuggear
     }
 }
